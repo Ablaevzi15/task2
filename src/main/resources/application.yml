@@ -1,0 +1,44 @@
+version:
+  number: @application.version.number@
+
+
+#server properties
+server:
+  port: 8070
+  error:
+    include-stacktrace: always
+
+
+spring:
+  jpa:
+    open-in-view: false
+    show-sql: false
+    properties:
+      hibernate:
+        order_insrerts: true
+        order_updates: true
+        generate_statistics: false
+        useServerPrepStmts: true
+        jdbc:
+          batch_size: 20
+          batch_versioned_data: true
+    hibernate:
+      ddl-auto: none
+
+  profiles:
+    active: dev
+
+---
+spring:
+  profiles: dev
+  flyway:
+    enabled: true
+  datasource:
+    url: @dbUrlDevLocal@
+    username: @usernameDevLocal@
+    password: @passwordDevLocal@
+    hikari:
+      connection-timeout: 20000
+      maximum-pool-size: 5
+
+---
